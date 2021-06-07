@@ -1,0 +1,22 @@
+
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3307/orderfood_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:Mybatis/mapper/*Mapper.xml
+  type-aliases-package: com.example.orderappservice.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
