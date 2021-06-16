@@ -1,6 +1,5 @@
 package com.example.orderappservice.pojo;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 

@@ -12,6 +12,7 @@ public interface BusinessMapper {
     //查询商家
     @Select("select * from business")
     @Results({
+            @Result(property = "business_id", column = "business_id"),
 //            @Result(property = "businessName", column = "business_name"),
 //            @Result(property = "refectory", column = "refectory"),
 //            @Result(property = "description", column = "descriptions"),
@@ -20,9 +21,10 @@ public interface BusinessMapper {
             many = @Many(select = "com.example.orderappservice.mapper.ProductsMapper.getProductsByBusinessId"))
     })
     //对business_id赋值
-    @Result(property = "business_id", column = "business_id")
     List<Business> getBusinessList();
 
+    @Select("select * from business where business_id = #{business_id}")
+    Business getBusinessByBusinessId(Integer business_id);
 //
 //    //根据id查询商家
 //    //查询商家
