@@ -82,7 +82,9 @@ public interface OrderMapper {
             @Result(property = "orderDetailsList", column = "order_id",
                     many = @Many(select = "com.example.orderappservice.mapper.OrderDetailsMapper.getOrderDetailsByOrderId")),
             @Result(property = "rider", column = "rider_id",
-                    many = @Many(select = "com.example.orderappservice.mapper.RiderMapper.getRiderByRiderId"))
+                    many = @Many(select = "com.example.orderappservice.mapper.RiderMapper.getRiderByRiderId")),
+            @Result(property = "address", column = "address_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.AddressMapper.getAddressByAddressId"))
     })
     OrderDoneInfoForM getOrderDoneInfoForMByOrderId(Integer order_id);
 

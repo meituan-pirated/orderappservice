@@ -1,5 +1,6 @@
 package com.example.orderappservice.bean;
 
+import com.example.orderappservice.pojo.Address;
 import com.example.orderappservice.pojo.OrderDetails;
 import com.example.orderappservice.pojo.Rider;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,8 @@ public class OrderDoneInfoForM {
     private int order_id;
 
     private List<OrderDetails> orderDetailsList;
+
+    private Address address;
 
     private Rider rider;
 
