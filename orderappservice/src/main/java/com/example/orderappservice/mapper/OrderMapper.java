@@ -76,15 +76,16 @@ public interface OrderMapper {
     })
     List<OrderDoneBriefForM> getOrderDoneByBusinessId(@Param("business_id") Integer business_id, @Param("order_state") String order_state);
 
-    @Select("select order_id, order_time, arrive_time,rider_id from `order` where order_id = ${order_id}")
+    @Select("select order_id, order_time, arrive_time,rider_id,address_id from `order` where order_id = ${order_id}")
     @Results({
             @Result(property = "order_id", column = "order_id"),
             @Result(property = "orderDetailsList", column = "order_id",
                     many = @Many(select = "com.example.orderappservice.mapper.OrderDetailsMapper.getOrderDetailsByOrderId")),
-            @Result(property = "rider", column = "rider_id",
-                    many = @Many(select = "com.example.orderappservice.mapper.RiderMapper.getRiderByRiderId")),
             @Result(property = "address", column = "address_id",
-                    many = @Many(select = "com.example.orderappservice.mapper.AddressMapper.getAddressByAddressId"))
+                    many = @Many(select = "com.example.orderappservice.mapper.AddressMapper.getAddressByAddressId")),
+            @Result(property = "rider", column = "rider_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.RiderMapper.getRiderByRiderId"))
+
     })
     OrderDoneInfoForM getOrderDoneInfoForMByOrderId(Integer order_id);
 

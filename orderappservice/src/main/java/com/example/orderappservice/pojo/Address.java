@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
-    private Integer address_id;
+    private int address_id;
+    private int user_id;
     private String receiveName;
     private String receivePhone;
     private String addressName;

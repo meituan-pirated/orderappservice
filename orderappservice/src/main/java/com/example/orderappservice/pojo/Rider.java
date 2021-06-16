@@ -13,5 +13,4 @@ public class Rider {
     private String nickName;
     private String phoneNumber;
     private String advatar;
-    private String password;
 }
