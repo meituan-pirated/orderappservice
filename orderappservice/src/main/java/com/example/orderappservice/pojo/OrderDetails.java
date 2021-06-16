@@ -14,9 +14,8 @@ public class OrderDetails {
     private int order_details_id;
     private Integer amount;
 
-    //将order与products的多对多关系，转化成中间表和各自的一对多关系
-    //orderDetails为一的一方
-    private Products product;
+
+    private Products products;//每个详细记录只能对应各商品
 
 
 //    //将订单中每一项商品的属性值和订单中一列商品的多对多的关系转化成一对多的关系

@@ -10,16 +10,13 @@ import java.util.List;
 @Repository
 public interface OrderDetailsMapper {
 
-    @Select("select * " +
-            "from order_details " +
-            "where order_id = #{order_id}")
+    @Select("select * from order_details where order_id = #{order_id}")
     @Results({
             @Result(property = "order_details_id", column = "order_details_id"),
-            @Result(property = "product", column = "product_id",
+            @Result(property = "products", column = "product_id",
             many = @Many(select = "com.example.orderappservice.mapper.ProductsMapper.getProductsByProductId"))
 //            @Result(property = "orderList", column = "order_id",
 //                    many = @Many(select = "com.example.orderappservice.mapper.OrderMapper.getOrderList")),
-//            @Result(property = "productList", column = "product_id",
 //                    many = @Many(select = "com.example.orderappservice.mapper.ProductsMapper.getProductsByProductId")),
     })
     List<OrderDetails> getOrderDetailsByOrderId(Integer order_id);

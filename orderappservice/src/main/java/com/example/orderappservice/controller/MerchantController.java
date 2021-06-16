@@ -3,11 +3,9 @@ package com.example.orderappservice.controller;
 import com.example.orderappservice.bean.RestFulBean;
 import com.example.orderappservice.pojo.Business;
 import com.example.orderappservice.pojo.Order;
-import com.example.orderappservice.pojo.OrderDetails;
 import com.example.orderappservice.pojo.Products;
 import com.example.orderappservice.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

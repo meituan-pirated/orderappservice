@@ -13,7 +13,7 @@ public interface UserMapper {
     @Results({
             @Result(property = "user_id", column = "user_id"),
             @Result(property = "addressList", column = "user_id",
-        many = @Many(select = "com.example.orderappservice.mapper.AddressMappergetAddressByUserId"))
+        many = @Many(select = "com.example.orderappservice.mapper.AddressMapper.getAddressByUserId"))
     })
     List<User> getUserList();
 }

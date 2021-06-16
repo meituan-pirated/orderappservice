@@ -7,7 +7,6 @@ import com.example.orderappservice.mapper.OrderMapper;
 import com.example.orderappservice.mapper.ProductsMapper;
 import com.example.orderappservice.pojo.Business;
 import com.example.orderappservice.pojo.Order;
-import com.example.orderappservice.pojo.OrderDetails;
 import com.example.orderappservice.pojo.Products;
 import com.example.orderappservice.service.MerchantService;
 import com.example.orderappservice.util.RestFulUtil;

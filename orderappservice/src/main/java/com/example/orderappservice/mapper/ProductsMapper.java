@@ -37,13 +37,15 @@ public interface ProductsMapper {
 //            @Result(property = "image", column = "image"),
 
     })
-    List<Products> getProductsByProductId(Integer product_id);
+    Products getProductsByProductId(Integer product_id);
+
 
     @Insert(value = "INSERT INTO products " +
             "VALUES (#{p.product_id},#{p.business.business_id},#{p.productName},#{p.descriptions}, #{p.salePrice},#{p.deliveryPrice},#{p.image})")
     //设置主键自增
     @Options(useGeneratedKeys = true,keyProperty = "product_id",keyColumn = "product_id")
     int addProduct(@Param("p") Products products);
+
 
     @Delete("delete from products where product_id = #{product_id}")
     int deleteProduct(Integer product_id);
