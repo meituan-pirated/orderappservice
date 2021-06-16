@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--注意：引入thymeleaf的名称空间-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>登录</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+    <!--引入 element-ui 的样式，-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 必须先引入vue，  后使用element-ui -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <!-- 引入element 的组件库-->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        // if (window.top !== window.self) {
+        //     window.top.location = window.location;
+        // }
+        function check() {
+            var uid = document.f1.uid.value;
+            var upwd = document.f1.upwd.value;
+            if (uid == "admin" && upwd == "123456") {
+                alert("登录成功");
+                window.location="index.html";
+                window.event.returnValue = false;
+            }else {
+                alert("账号或密码错误");
+                return false;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function hideShowPsw(){
+            // 这里使用最原始的js语法实现，可对应换成jquery语法进行逻辑控制
+            var demoImg = document.getElementById("demo-img");
+            var demoInput = document.getElementById("demo-input");
+            //隐藏text block，显示password block
+            if (demoInput.type == "password") {
+                demoInput.type = "text";
+                demoImg.src = "../static/img/invisible.png";
+            }else {
+                demoInput.type = "password";
+                demoImg.src="../static/img/visible.png"
+            }
+        }
+    </script>
+
+</head>
+<body style="margin: 0px;padding:0">
+    <div class="login">
+        <form name="f1" class="m-t" role="form" onsubmit="return check()" th:action="@{/manager/index}">
+            <div class="tit">校园点餐后台管理系统</div>
+            <div class="form-group">
+                <div class="shu">
+                    <div class="shu-l">
+                        <img th:src="@{/img/manager.png}">
+                    </div>
+                    <div class="shu-m">
+                        <input type="text" name="uid" placeholder="管理员账号" required="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="shu">
+                    <div class="shu-l">
+                        <img th:src="@{/img/password.png}">
+                    </div>
+                    <div class="shu-m">
+                        <input type="password" id="demo-input" name="upwd" placeholder="密码" required="">
+                    </div>
+                    <div class="shu-r">
+                        <img id="demo-img" onclick="hideShowPsw()" th:src="@{/img/invisible.png}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="btn">
+                    <button type="submit" class="el-button el-button--primary el-button--medium" style="width: 100%;height: 50px">
+                        <span>登 录</span>
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="btn">账号：admin&emsp;密码：123456</div>
+                <br>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+
+
+

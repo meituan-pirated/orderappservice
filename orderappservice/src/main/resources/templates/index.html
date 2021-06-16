@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+    <!--引入 element-ui 的样式，-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 必须先引入vue，  后使用element-ui -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <!-- 引入element 的组件库-->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+    <script src="../static/js/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript"></script>
+
+    <script>
+        window.onload = function () {
+            var oSpan = document.getElementById("span_1");
+            var oDrop = document.getElementById("ul_1");
+            var style = oDrop.style;
+            oSpan.onclick = function () {
+                style.display = style.display == "block" ? "none":"block"
+            };
+        }
+    </script>
+
+</head>
+
+<body id="app" style="margin: 0px;width: 100%;background-color: #545c64">
+    <!--左边菜单栏-->
+    <div class="el-aside" style="width: 120px;height: 100%">
+        <ul class="el-menu-vertical el-menu" style="background-color: #545c64">
+            <li class="el-menu-item is-disabled" style="background-color: #545c64"></li>
+            <li class="el-menu-item is-active" style="padding-left: 20px">
+                <a href="index.html" style="color: #5ab1ef">
+                    <i class="el-icon-s-home"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li class="el-menu-item" style="color: white;padding-left: 20px">
+                <a th:href="@{merchant.html}">
+                    <i class="el-icon-s-shop"></i>
+                    <span>商家</span>
+                </a>
+            </li>
+            <li class="el-menu-item" style="color: white;padding-left: 20px">
+                <a href="user.html">
+                    <i class="el-icon-user"></i>
+                    <span>用户</span>
+                </a>
+            </li>
+            <li class="el-menu-item" style="color: white;padding-left: 20px">
+                <a href="rider.html">
+                    <i class="el-icon-s-custom"></i>
+                    <span>骑手</span>
+                </a>
+            </li>
+            <li class="el-menu-item" style="color: white;padding-left: 20px">
+                <a href="order.html">
+                    <i class="el-icon-document"></i>
+                    <span>订单</span>
+                </a>
+            </li>
+            <li class="el-menu-item" style="color: white;padding-left: 20px">
+                <a href="statistics.html">
+                    <i class="el-icon-s-marketing"></i>
+                    <span>统计</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!--右边-->
+    <div>
+        <!--头部-->
+        <div class="el-header" style="height: 60px;border-bottom: #606266 1px solid;background-color: white">
+            <div class="header">
+                <div class="head" style="margin-right: 20px">
+                    <span id="span_1" class="head-img">
+                        <img th:src="@{/img/sc.jpg}">
+                    </span>
+                    <div class="setlist">
+                        <ul class="dropdown" id="ul_1" >
+                            <li><a href="#"> 修改密码 </a></li>
+                            <li><a href="#">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--主体-->
+        <div class="el-main" style="height: 100%; background-color: #cccccc; margin: 0;padding: 0">
+            <div style="background-color: #f5f7f9;margin: 0;padding: 20px">
+                <!--上部分-->
+                <div class="el-row">
+                    <div style="width: 25%; padding-left: 10px;padding-right: 10px">
+                        <div class="text">
+                            <div class="text_01">
+                                <div>订单</div>
+                            </div>
+                            <div class="text_02">
+                                <div>
+                                    <span style="font-size: 28px">0</span>
+                                    <br>
+                                    "今日订单"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 25%; padding-left: 10px;padding-right: 10px">
+                        <div class="text">
+                            <div class="text_01">
+                                <div>交易</div>
+                            </div>
+                            <div class="text_02">
+                                <div>
+                                    <span style="font-size: 28px">0</span>
+                                    <br>
+                                    "本月订单"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 25%; padding-left: 10px;padding-right: 10px">
+                        <div class="text">
+                            <div class="text_01">
+                                <div>用户</div>
+                            </div>
+                            <div class="text_02">
+                                <div>
+                                    <span style="font-size: 28px">0</span>
+                                    <br>
+                                    "今日新增用户"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 25%; padding-left: 10px;padding-right: 10px">
+                        <div class="text">
+                            <div class="text_01">
+                                <div>用户</div>
+                            </div>
+                            <div class="text_02">
+                                <div>
+                                    <span style="font-size: 28px">0</span>
+                                    <br>
+                                    "本月新增用户"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--下部分-->
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商家管理界面</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+    <!--引入 element-ui 的样式，-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 必须先引入vue，  后使用element-ui -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <!-- 引入element 的组件库-->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+    <script src="../static/js/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript"></script>
+
+    <script>
+        window.onload = function () {
+            var oSpan = document.getElementById("span_1");
+            var oDrop = document.getElementById("ul_1");
+            var style = oDrop.style;
+            oSpan.onclick = function () {
+                style.display = style.display == "block" ? "none":"block"
+            };
+        }
+    </script>
+
+</head>
+<body id="app" style="margin: 0px;width: 100%; height: 100%;background-color: #545c64">
+    <!--左边菜单栏-->
+    <div class="el-aside" style="width: 120px;height: 100%">
+        <ul class="el-menu-vertical el-menu" style="background-color: #545c64">
+            <li class="el-menu-item is-disabled" style="background-color: #545c64"></li>
+            <li class="el-menu-item" style="padding-left: 20px">
+                <a href="index.html">
+                    <i class="el-icon-s-home"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li class="el-menu-item is-active" style="color: white;padding-left: 20px">
+                <a href="merchant.html" style="color: #5ab1ef">
+                    <i class="el-icon-s-shop"></i>
+                    <span>商家</span>
+                </a>
+            </li>
+            <li class="el-menu-item" style="color: white;padding-left: 20px">
+                <a href="user.html">
+                    <i class="el-icon-user"></i>
+                    <span>用户</span>
+                </a>
+            </li>
+            <li class="el-menu-item" style="color: white;padding-left: 20px">
+                <a href="rider.html">
+                    <i class="el-icon-s-custom"></i>
+                    <span>骑手</span>
+                </a>
+            </li>
+            <li class="el-menu-item" style="color: white;padding-left: 20px">
+                <a href="order.html">
+                    <i class="el-icon-document"></i>
+                    <span>订单</span>
+                </a>
+            </li>
+            <li class="el-menu-item" style="color: white;padding-left: 20px">
+                <a href="statistics.html">
+                    <i class="el-icon-s-marketing"></i>
+                    <span>统计</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!--右边-->
+    <div>
+        <!--头部-->
+        <div class="el-header" style="height: 60px;border-bottom: #606266 1px solid;background-color: white">
+            <div class="header">
+                <div class="head" style="margin-right: 20px">
+                    <span id="span_1" class="head-img">
+                        <img th:src="@{/img/sc.jpg}">
+                    </span>
+                    <div class="setlist">
+                        <ul class="dropdown" id="ul_1" >
+                            <li><a href="#"> 修改密码 </a></li>
+                            <li><a href="#">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--主体-->
+        <div class="el-main" style="background-color: #f5f7f9;height: 100%; padding: 1.5rem 15px">
+            <div>
+                <!--目录导航-->
+                <nav aria-label="content" style="display: block">
+                    <ol class="content pl-0">
+                        <li class="content-item">
+                            <a href="index.html">
+                                <i class="el-icon-s-home">  首页</i>
+                            </a>
+                        </li>
+                        <li class="content-item active" style="font-size: 14px">
+                            商家信息管理
+                        </li>
+                        <li>
+
+                        </li>
+                        <li>
+                        </li>
+                    </ol>
+                </nav>
+                <!--列表详情-->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h6>商家信息</h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <div id="data-table-5_wrapper" class="dataTables_wrapper">
+                                <!--显示行数&搜索-->
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables-length" id="data-table-5_length">
+                                            <label>
+                                                Show
+                                                <select aria-controls="data-table-5" class="business-select">
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_filter">
+                                            <label>
+                                                <input type="search" class="form-control" placeholder="Search Data..."aria-controls="data-table-5">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--信息列表-->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table" role="grid" style="width: 100%!important;">
+                                            <thead>
+                                            <tr role="row" style="color: white">
+                                                <th class="sorting-asc" aria-controls="data-table-5"
+                                                rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
+                                                style="width: 40px" aria-sort="ascending">Business ID</th>
+                                                <th class="sorting" aria-controls="data-table-5"
+                                                    rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
+                                                    style="width: 40px" aria-sort="ascending">Refectory</th>
+                                                <th class="sorting" aria-controls="data-table-5"
+                                                    rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
+                                                    style="width: 40px" aria-sort="ascending">Name</th>
+                                                <th class="sorting" aria-controls="data-table-5"
+                                                    rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
+                                                    style="width: 60px" aria-sort="ascending">Descriptions</th>
+                                                <th class="sorting" aria-controls="data-table-5"
+                                                    rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
+                                                    style="width: 50px" aria-sort="ascending">Image</th>
+                                                <th class="sorting" aria-controls="data-table-5"
+                                                    rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
+                                                    style="width: 50px" aria-sort="ascending">Order Count</th>
+                                                <th class="sorting" aria-controls="data-table-5"
+                                                    rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
+                                                    style="width: 60px" aria-sort="ascending">Function</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="MB:${MBusiness}" role="row" class="odd">
+                                                <td th:text="${MB.}"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--尾部页数-->
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="dataTables-info" role="status" aria-live="polite">
+                                            Showing 1 to 10 of all entries
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-7"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
