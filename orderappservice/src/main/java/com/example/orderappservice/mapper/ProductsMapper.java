@@ -1,5 +1,6 @@
 package com.example.orderappservice.mapper;
 
+import com.example.orderappservice.bean.ProductBriefForM;
 import com.example.orderappservice.pojo.Products;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -38,6 +39,20 @@ public interface ProductsMapper {
 
     })
     List<Products> getProductsByProductId(Integer product_id);
+
+
+    @Select("select product_id, product_name, sale_price, image from products where business_id = #{business_id} and product_state = 'on'")
+    @Results({
+            @Result(property = "product_id", column = "product_id")
+    })
+    List<ProductBriefForM> getProductBriefForMByBusinessId(Integer business_id);
+
+    @Select("select * from products where product_id = #{product_id}")
+    @Results({
+            @Result(property = "product_id", column = "product_id")
+    })
+    Products getProductByProductId(Integer product_id);
+
 
     @Insert(value = "INSERT INTO products " +
             "VALUES (#{p.product_id},#{p.business.business_id},#{p.productName},#{p.descriptions}, #{p.salePrice},#{p.deliveryPrice},#{p.image})")
