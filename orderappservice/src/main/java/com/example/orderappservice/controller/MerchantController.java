@@ -8,6 +8,8 @@ import com.example.orderappservice.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/MerchantOpera")
 public class MerchantController {
@@ -78,7 +80,8 @@ public class MerchantController {
 
     @PostMapping("/addProduct")
     @ResponseBody
-    public RestFulBean<String> addProduct(@RequestBody Products products){
+    public RestFulBean<String> addProduct(Products products) throws IOException {
+        System.out.println(products.getBusiness_id());
         return merchantService.addProduct(products);
     }
 
@@ -93,6 +96,7 @@ public class MerchantController {
     public RestFulBean<String> saveProductChange(Products products){
         return merchantService.saveProductChange(products);
     }
+
 
 
 

@@ -54,7 +54,7 @@ public interface ProductsMapper {
     Products getProductByProductId(Integer product_id);
 
     @Insert(value = "INSERT INTO products " +
-            "VALUES (#{p.product_id},#{p.business.business_id},#{p.productName},#{p.descriptions}, #{p.salePrice},#{p.deliveryPrice},#{p.image})")
+            "VALUES (#{p.product_id},#{p.business_id},#{p.productName},#{p.descriptions}, #{p.salePrice},#{p.image}, 'on')")
     //设置主键自增
     @Options(useGeneratedKeys = true,keyProperty = "product_id",keyColumn = "product_id")
     int addProduct(@Param("p") Products products);
