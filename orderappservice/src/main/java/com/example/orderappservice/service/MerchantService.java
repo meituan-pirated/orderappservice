@@ -5,6 +5,8 @@ import com.example.orderappservice.pojo.Business;
 import com.example.orderappservice.pojo.Order;
 import com.example.orderappservice.pojo.Products;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public interface MerchantService {
@@ -33,6 +35,6 @@ public interface MerchantService {
 
     RestFulBean<String> deleteProduct(Integer product_id);
 
-    RestFulBean<String> addProduct(Products products);
+    RestFulBean<String> addProduct(Products products) throws IOException;
 
 }

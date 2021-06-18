@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-//提供一个无参构造
 @NoArgsConstructor
-//所有的有参构造
 @AllArgsConstructor
 public class Rider {
     Integer rider_id;

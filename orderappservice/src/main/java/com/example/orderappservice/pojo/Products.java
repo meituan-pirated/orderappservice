@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Products {
     private Integer product_id;
+    private Integer business_id;
     private String productName;
     private String descriptions;
     private Integer salePrice;
@@ -71,5 +72,13 @@ public class Products {
 
     public void setBusiness(Business business) {
         this.business = business;
+    }
+
+    public Integer getBusiness_id() {
+        return business_id;
+    }
+
+    public void setBusiness_id(Integer business_id) {
+        this.business_id = business_id;
     }
 }

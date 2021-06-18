@@ -28,6 +28,8 @@ public interface OrderMapper {
     })
     Order getOrderByOrderId(Integer order_id);
 
+
+
 //    @Select("select * from `order`")
 //    @Results({
 //            @Result(property = "order_id",column = "order_id"),
@@ -36,6 +38,19 @@ public interface OrderMapper {
 //            many = @Many(select = "com.example.orderappservice.mapper.OrderDetailsMapper.getOrderDetailsByOrderId"))
 //    })
 //    List<Order> getOrderList();
+
+    @Select("select * from `order` where business_id = #{business_id} and order_state = #{order_state}")
+    @Results({
+            @Result(property = "order_id",column = "order_id"),
+            @Result(property = "user_id", column = "user_id"),
+            @Result(property = "business_id", column = "business_id"),
+            @Result(property = "rider_id", column = "rider_id"),
+            @Result(property = "address", column = "address_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.AddressMapper.getAddressByAddressId")),
+            @Result(property = "orderDetailsList", column = "order_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.OrderDetailsMapper.getOrderDetailsByOrderId"))
+    })
+    List<Order> getOrderByOrderState(@Param("business_id") Integer business_id, @Param("order_state") String order_state);
 
 
     @Select("select order_id, order_note, order_state, rider_id, order_id, order_time from `order` where business_id = #{business_id} and order_state = #{order_state}")
@@ -67,12 +82,13 @@ public interface OrderMapper {
     })
     List<OrderDoneBriefForM> getOrderDoneByBusinessId(@Param("business_id") Integer business_id, @Param("order_state") String order_state);
 
-
     @Select("select order_id, order_time, arrive_time,rider_id from `order` where order_id = ${order_id}")
     @Results({
             @Result(property = "order_id", column = "order_id"),
             @Result(property = "orderDetailsList", column = "order_id",
                     many = @Many(select = "com.example.orderappservice.mapper.OrderDetailsMapper.getOrderDetailsByOrderId")),
+            @Result(property = "address", column = "address_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.AddressMapper.getAddressByAddressId")),
             @Result(property = "rider", column = "rider_id",
                     many = @Many(select = "com.example.orderappservice.mapper.RiderMapper.getRiderByRiderId"))
     })
@@ -94,7 +110,7 @@ public interface OrderMapper {
 
 
     @Update("update `order` set order_state= #{order_state} where order_id = #{order_id}")
-    int updateOrderStateByOrderId(@Param("order_state") String order_state,@Param("order_id") Integer order_id);
+    int updateOrderStateByOrderId(@Param("order_state") String order_state, @Param("order_id") Integer order_id);
 
 
     @Select("select * from `order` where order_state = 'maccept'")

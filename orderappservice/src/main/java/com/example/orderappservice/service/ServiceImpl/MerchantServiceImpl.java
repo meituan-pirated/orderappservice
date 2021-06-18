@@ -145,7 +145,23 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public RestFulBean<String> addProduct(Products products) {
+    public RestFulBean<String> addProduct(Products products){
+        try {
+            byte[] imageByteArray = Base64.decodeBase64(products.getImage());
+
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+
+            FileOutputStream imageOutFile = new FileOutputStream("E:/android/pics/" + uuid+".jpg");
+            imageOutFile.write(imageByteArray);
+
+            imageOutFile.close();
+            products.setImage(uuid);
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Image Path not found" + fnfe);
+        } catch (IOException ioe) {
+            System.out.println("Exception while converting the Image " + ioe);
+        }
+
         int result = productsMapper.addProduct(products);
         if(result == 1){
             return RestFulUtil.getInstance().getResuFulBean("", 0, "成功添加商品");
