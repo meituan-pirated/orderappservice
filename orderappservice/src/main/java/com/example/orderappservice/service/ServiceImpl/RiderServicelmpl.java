@@ -55,9 +55,9 @@ public class RiderServicelmpl implements RiderService {
     }
 
     @Override
-    public RestFulBean<Integer> ChangeRiderInfo(Integer riderID, String newNickName, String newSex, String finalPwd) {
+    public RestFulBean<Integer> ChangeRiderInfo(Integer riderID, String newNickName, String newSex, String finalPwd,String advatar) {
         int update_login = loginMapper.updateLoginById(finalPwd,riderID);
-        int update_rider = riderMapper.updateRiderByRiderId(newSex,newNickName,finalPwd,riderID);
+        int update_rider = riderMapper.updateRiderByRiderId(newSex,newNickName,finalPwd,advatar,riderID);
 
         return RestFulUtil.getInstance().getResuFulBean(update_login*update_rider, 0, "更新骑手账号信息的结果");
     }

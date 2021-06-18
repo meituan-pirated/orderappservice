@@ -20,7 +20,7 @@ public interface RiderService {
 
     RestFulBean<Integer> updateOrderStateByOrderId(Integer order_id, String order_state);
 
-    RestFulBean<Integer> ChangeRiderInfo(Integer riderID, String newNickName, String newSex, String finalPwd);
+    RestFulBean<Integer> ChangeRiderInfo(Integer riderID, String newNickName, String newSex, String finalPwd,String advatar);
 
     RestFulBean<Integer>updateOrderRider(Integer order_id,Integer riderID);
 

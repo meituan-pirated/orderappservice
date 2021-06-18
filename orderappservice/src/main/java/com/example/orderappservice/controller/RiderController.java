@@ -38,9 +38,10 @@ public class RiderController {
     @GetMapping("/changeRiderInfo")
     @ResponseBody
     public RestFulBean<Integer> changeRiderInfo(@RequestParam("rider_id")Integer rider_id, @RequestParam("nick_name")String nick_name,
-                                                @RequestParam("sex")String sex,@RequestParam("password")String password){
+                                                @RequestParam("sex")String sex,@RequestParam("password")String password,
+                                                @RequestParam("advatar")String advatar){
         System.out.println(password);
-        return riderService.ChangeRiderInfo(rider_id,nick_name,sex,password);
+        return riderService.ChangeRiderInfo(rider_id,nick_name,sex,password,advatar);
     }
 
     @GetMapping("/changeOrderState")

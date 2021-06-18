@@ -16,8 +16,9 @@ public interface RiderMapper {
     })
     Rider getRiderInfo(@Param("rider_id") Integer rider_id);
 
-    @Update("update `rider` set sex = #{sex},password = #{password},nick_name=#{nick_name} where rider_id = #{rider_id}")
-    int updateRiderByRiderId(@Param("sex") String sex,@Param("nick_name") String nick_name,@Param("password") String password,@Param("rider_id") Integer rider_id);
+    @Update("update `rider` set sex = #{sex},password = #{password},nick_name=#{nick_name},advatar=#{advatar}  where rider_id = #{rider_id}")
+    int updateRiderByRiderId(@Param("sex") String sex,@Param("nick_name") String nick_name, @Param("password") String password,
+                             @Param("advatar") String advatar,@Param("rider_id") Integer rider_id);
 
 
     @Select("select rider_id, name, phone_number from rider where rider_id = #{rider_id}")
