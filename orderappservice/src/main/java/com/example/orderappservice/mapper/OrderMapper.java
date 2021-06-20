@@ -1,7 +1,9 @@
 package com.example.orderappservice.mapper;
 
-import com.example.orderappservice.pojo.Order;
-import com.example.orderappservice.pojo.OrderDetails;
+import com.example.orderappservice.bean.OrderDoneBriefForM;
+import com.example.orderappservice.bean.OrderDoneInfoForM;
+import com.example.orderappservice.bean.OrderIngForM;
+import com.example.orderappservice.pojo.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -10,19 +12,6 @@ import java.util.List;
 @Mapper
 @Repository
 public interface OrderMapper {
-
-    @Select("select count(order_id) as totalOrder from `order` where business_id = #{business_id}")
-    int gerOrderCountByBusinessId(Integer business_id);
-
-    @Select("select count(order_id) as totalOrder from `order` where user_id = #{user_id}")
-    int getOrderCountByUserId(Integer user_id);
-
-    @Select("select count(order_id) as totalOrder from `order` where rider_id = #{rider_id}")
-    int getOrderCountByRiderId(Integer rider_id);
-
-    @Select("select count(order_id) as totalOrder from `order`")
-    int getOrderCount();
-
     @Select("select * from `order` where order_id = #{order_id}")
     @Results({
             @Result(property = "order_id",column = "order_id"),
@@ -34,7 +23,9 @@ public interface OrderMapper {
             @Result(property = "orderDetailsList", column = "order_id",
                     many = @Many(select = "com.example.orderappservice.mapper.OrderDetailsMapper.getOrderDetailsByOrderId"))
     })
-    List<Order> getOrderByOrderId(Integer order_id);
+    Order getOrderByOrderId(Integer order_id);
+
+
 
 //    @Select("select * from `order`")
 //    @Results({
@@ -102,7 +93,7 @@ public interface OrderMapper {
 
 
     @Update("update `order` set order_state= #{order_state} where order_id = #{order_id}")
-    int updateOrderStateByOrderId(@Param("order_state") String order_state,@Param("order_id") Integer order_id);
+    int updateOrderStateByOrderId(@Param("order_state") String order_state, @Param("order_id") Integer order_id);
 
 
     @Select("select * from `order` where order_state = 'maccept'")
@@ -120,7 +111,7 @@ public interface OrderMapper {
     List<OrderForR> getNewOrderList();
 
 
-    @Select("select order_id,  order_state, address_id, business_id from `order` where (order_state = 'raccept' or order_state = 'at_res' or order_state = 'raccept') " +
+    @Select("select order_id,  order_state, address_id, business_id from `order` where (order_state = 'raccept' or order_state = 'at_res' or order_state = 'delivering') " +
             "and rider_id = #{rider_id}")
     @Results({
             @Result(property = "order_id",column = "order_id"),
@@ -170,5 +161,49 @@ public interface OrderMapper {
 
     @Select("select count(order_id) from `order` where order_time >= #{today}")
     Integer getTodayOrderByRiderId(String today);
+
+
+    @Select("select order_id,  order_state,order_time,arrive_time, order_price, address_id, business_id from `order` where (order_state = 'maccept' or order_state = 'raccept'" +
+            "or order_state = 'at_res' or order_state = 'delivering') and user_id = #{user_id}")
+    @Results({
+            @Result(property = "order_id",column = "order_id"),
+            @Result(property = "order_state",column = "order_state"),
+            @Result(property = "order_time",column = "order_time"),
+            @Result(property = "arrive_time",column = "arrive_time"),
+            @Result(property = "order_price",column = "order_price"),
+            @Result(property = "businessInfo", column = "business_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.BusinessMapper.getBusinessForR")),
+            @Result(property = "address", column = "address_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.AddressMapper.getAddressByAddressId")),
+    })
+    List<OrderForR> getIngOrderForUList(@Param("user_id")Integer user_id);
+
+
+    @Select("select order_id, order_state,order_time,arrive_time, order_price,rider_score, address_id, business_id from `order` where order_state = 'arrive'  and user_id = #{user_id}")
+    @Results({
+            @Result(property = "order_id",column = "order_id"),
+            @Result(property = "order_state",column = "order_state"),
+            @Result(property = "order_time",column = "order_time"),
+            @Result(property = "arrive_time",column = "arrive_time"),
+            @Result(property = "order_price",column = "order_price"),
+            @Result(property = "rider_score",column = "rider_score"),
+            @Result(property = "businessInfo", column = "business_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.BusinessMapper.getBusinessForR")),
+            @Result(property = "address", column = "address_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.AddressMapper.getAddressByAddressId")),
+    })
+    List<OrderForR> getFinishedOrderForUList(@Param("user_id")Integer user_id);
+
+    @Select("select * from `order` where order_id = #{order_id}")
+    @Results({
+            @Result(property = "rider", column = "rider_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.RiderMapper.getRiderByRiderId")),
+            @Result(property = "businessInfo", column = "business_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.BusinessMapper.getBusinessForR")),
+            @Result(property = "order",column = "order_id",
+                    many = @Many(select = "com.example.orderappservice.mapper.OrderMapper.getOrderByOrderId"))
+
+    })
+    OrderDetailsForU getOrderDetailsForUByOrderId(Integer order_id);
 
 }

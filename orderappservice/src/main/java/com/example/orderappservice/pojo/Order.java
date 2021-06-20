@@ -27,6 +27,7 @@ public class Order {
 
     private String orderPrice;
     private String orderTime;
+    private String arriveTime;
     private Integer riderScore;
     private Integer businessScore;
 
@@ -108,6 +109,14 @@ public class Order {
 
     public void setOrderTime(String orderTime) {
         this.orderTime = orderTime;
+    }
+
+    public String getArriveTime() {
+        return arriveTime;
+    }
+
+    public void setArriveTime(String arriveTime) {
+        this.arriveTime = arriveTime;
     }
 
     public Integer getRiderScore() {
