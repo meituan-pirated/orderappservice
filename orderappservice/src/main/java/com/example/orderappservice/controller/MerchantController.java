@@ -18,12 +18,6 @@ public class MerchantController {
     @Autowired
     private MerchantService merchantService;
 
-    @GetMapping("/queryBusiness")
-    @ResponseBody
-    public List<Business> queryBusiness(){
-        return merchantService.getBusinessList();
-    }
-
     @GetMapping("/getOrderList")
     @ResponseBody
     public RestFulBean<Order> getOrder(@RequestParam("order_id")Integer order_id){

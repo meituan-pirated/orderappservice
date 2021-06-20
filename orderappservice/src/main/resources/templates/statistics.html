@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>统计界面</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <link rel="stylesheet" type="text/css"th:href="@{/css/index.css}">
     <!--引入 element-ui 的样式，-->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 必须先引入vue，  后使用element-ui -->
@@ -35,33 +35,33 @@
             </a>
         </li>
         <li class="el-menu-item" style="color: white;padding-left: 20px">
-            <a href="merchant.html">
+            <a href="merchant">
                 <i class="el-icon-s-shop"></i>
                 <span>商家</span>
             </a>
         </li>
         <li class="el-menu-item" style="color: white;padding-left: 20px">
-            <a href="user.html">
+            <a href="user">
                 <i class="el-icon-user"></i>
                 <span>用户</span>
             </a>
         </li>
         <li class="el-menu-item" style="color: white;padding-left: 20px">
-            <a href="rider.html">
+            <a href="rider">
                 <i class="el-icon-s-custom"></i>
                 <span>骑手</span>
             </a>
         </li>
-        <li class="el-menu-item" style="color: white;padding-left: 20px">
-            <a href="order.html">
+        <li class="el-menu-item is-active" style="color: white;padding-left: 20px">
+            <a href="statistics" style="color: #5ab1ef">
                 <i class="el-icon-document"></i>
-                <span>订单</span>
+                <span>统计</span>
             </a>
         </li>
-        <li class="el-menu-item is-active" style="color: white;padding-left: 20px">
-            <a href="statistics.html" style="color: #5ab1ef">
+        <li class="el-menu-item" style="color: white;padding-left: 20px">
+            <a href="manager">
                 <i class="el-icon-s-marketing"></i>
-                <span>统计</span>
+                <span>管理</span>
             </a>
         </li>
     </ul>
@@ -73,12 +73,12 @@
         <div class="header">
             <div class="head" style="margin-right: 20px">
                     <span id="span_1" class="head-img">
-                        <img src="../static/img/sc.jpg">
+                        <img th:src="@{/img/sc.jpg}">
                     </span>
                 <div class="setlist">
                     <ul class="dropdown" id="ul_1" >
-                        <li><a href="#"> 修改密码 </a></li>
-                        <li><a href="#">退出</a></li>
+                        <li><a href="manager"> 管理员信息 </a></li>
+                        <li><a th:href="@{/manager/logout}">退出登录</a></li>
                     </ul>
                 </div>
             </div>
@@ -86,203 +86,73 @@
 
     </div>
     <!--主体-->
-    <div class="el-main" style="background-color: #f5f7f9;height: 100%; padding: 1.5rem 15px">
-        <div>
-            <!--目录导航-->
-            <nav aria-label="content" style="display: block">
-                <ol class="content pl-0">
-                    <li class="content-item">
-                        <a href="index.html">
-                            <i class="el-icon-s-home">  首页</i>
-                        </a>
-                    </li>
-                    <li class="content-item active" style="font-size: 14px">
-                        商家信息管理
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-                    </li>
-                </ol>
-            </nav>
-            <!--列表详情-->
-            <div class="panel">
-                <div class="panel-header">
-                    <h6>商家信息</h6>
+    <div class="el-main" style="height: 100%; background-color: #cccccc; margin: 0;padding: 0">
+        <div style="background-color: #f5f7f9;margin: 0;padding: 20px">
+            <!--上部分-->
+            <div class="el-row" style="display: block" >
+                <div class="el-col" style="width: 25%; padding-left: 10px;padding-right: 10px;padding-top: 20px">
+                    <div class="text">
+                        <div class="text_01">
+                            <div>订单数量</div>
+                        </div>
+                        <div class="text_02">
+                            <div>
+                                <span>-</span>&nbsp;&nbsp;
+                                <span th:text="${orderCount}" style="font-size: 28px"></span>
+                                &nbsp;&nbsp;<span>-</span>
+                                <br><br><br>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <div id="data-table-5_wrapper" class="dataTables_wrapper">
-                            <!--显示行数&搜索-->
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="dataTables-length" id="data-table-5_length">
-                                        <label>
-                                            Show
-                                            <select aria-controls="data-table-5" class="business-select">
-                                                <option value="10">10</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="dataTables_filter">
-                                        <label>
-                                            <input type="search" class="form-control" placeholder="Search Data..."aria-controls="data-table-5">
-                                        </label>
-                                    </div>
-                                </div>
+                <div class="el-col" style="width: 25%; padding-left: 10px;padding-right: 10px;padding-top: 20px">
+                    <div class="text">
+                        <div class="text_01">
+                            <div>商家数量</div>
+                        </div>
+                        <div class="text_02">
+                            <div>
+                                <span>-</span>&nbsp;&nbsp;
+                                <span th:text="${businessCount}" style="font-size: 28px"></span>
+                                &nbsp;&nbsp;<span>-</span>
+                                <br><br><br>
                             </div>
-                            <!--信息列表-->
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table" role="grid" style="width: 100%!important;">
-                                        <thead>
-                                        <tr role="row" style="color: white">
-                                            <th class="sorting-asc" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
-                                                style="width: 40px" aria-sort="ascending">Business ID</th>
-                                            <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
-                                                style="width: 40px" aria-sort="ascending">Refectory</th>
-                                            <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
-                                                style="width: 40px" aria-sort="ascending">Name</th>
-                                            <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
-                                                style="width: 60px" aria-sort="ascending">Descriptions</th>
-                                            <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
-                                                style="width: 50px" aria-sort="ascending">Image</th>
-                                            <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
-                                                style="width: 50px" aria-sort="ascending">Order Count</th>
-                                            <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
-                                                style="width: 60px" aria-sort="ascending">Function</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr role="row" class="odd">
-                                            <td>2</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td>4</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="el-col" style="width: 25%; padding-left: 10px;padding-right: 10px;padding-top: 20px">
+                    <div class="text">
+                        <div class="text_01">
+                            <div>用户数量</div>
+                        </div>
+                        <div class="text_02">
+                            <div>
+                                <span>-</span>&nbsp;&nbsp;
+                                <span th:text="${userCount}" style="font-size: 28px"></span>
+                                &nbsp;&nbsp;<span>-</span>
+                                <br><br><br>
                             </div>
-                            <!--尾部页数-->
-                            <div class="row">
-                                <div class="col-sm-12 col-md-5">
-                                    <div class="dataTables-info" role="status" aria-live="polite">
-                                        Showing 1 to 10 of all entries
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-7"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="el-col" style="width: 25%; padding-left: 10px;padding-right: 10px;padding-top: 20px">
+                    <div class="text">
+                        <div class="text_01">
+                            <div>骑手数量</div>
+                        </div>
+                        <div class="text_02">
+                            <div>
+                                <span>-</span>&nbsp;&nbsp;
+                                <span th:text="${riderCount}" style="font-size: 28px"></span>
+                                &nbsp;&nbsp;<span>-</span>
+                                <br><br><br>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--下部分-->
+            <div></div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         </div>
     </div>
 </div>

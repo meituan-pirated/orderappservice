@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户管理界面</title>
+    <title>查询用户界面</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
     <!--引入 element-ui 的样式，-->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -95,39 +95,28 @@
                             <i class="el-icon-s-home">  首页</i>
                         </a>
                     </li>
+                    <li class="content-item" style="font-size: 14px">
+                        <a href="user">
+                            用户信息管理
+                        </a>
+                    </li>
                     <li class="content-item active" style="font-size: 14px">
-                        用户信息管理
+                        查询用户信息
                     </li>
                 </ol>
             </nav>
             <!--列表详情-->
             <div class="panel">
                 <div class="panel-header">
-                    <h6>用户信息</h6>
+                    <h6>查询用户信息</h6>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <div id="data-table-5_wrapper" class="dataTables_wrapper">
-                            <!--显示行数&搜索-->
-                            <div class="row">
-                                <div>
-                                    &nbsp;
-                                    <a th:href="@{/manager/addUser}" class="btn-sm">添加用户</a>
-                                    &nbsp;&nbsp;&nbsp;<a th:href="@{/manager/user}" class="btn-sm">刷新</a>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="dataTables_filter">
-                                        <form th:action="@{/manager/getUser}" method="post">
-                                            <input type="text" name="user_id">
-                                            &nbsp;<button type="submit" class="btn-sm">查找</button>&nbsp;&nbsp;
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                             <!--信息列表-->
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table" role="grid" style="width: 100%!important;">
+                                    <table class="table" id="table" role="grid" style="width: 100%!important;">
                                         <thead>
                                         <tr role="row" style="color: white">
                                             <th class="sorting-asc" aria-controls="data-table-5"
@@ -154,32 +143,25 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="MU:${userList}" role="row" class="odd">
-                                            <td th:text="${MU.user_id}"></td>
-                                            <td th:text="${MU.name}"></td>
-                                            <td th:text="${MU.sex}"></td>
-                                            <td th:text="${MU.phoneNumber}"></td>
-                                            <td th:text="${MU.password}"></td>
-                                            <td th:text="${MU.totalOrder}"></td>
+                                        <tr th:each="MU:${user}" role="row" class="odd">
+                                            <td th:text="${user.user_id}" class="id"></td>
+                                            <td th:text="${user.name}"></td>
+                                            <td th:text="${user.sex}"></td>
+                                            <td th:text="${user.phoneNumber}"></td>
+                                            <td th:text="${user.password}"></td>
+                                            <td th:text="${user.totalOrder}"></td>
                                             <td>
                                                 <form th:action="@{/manager/user/delete/}+${MU.user_id}" method="get">
                                                     <button type="submit" class="btn-sm">删除</button>
                                                 </form>
                                             </td>
                                         </tr>
+<!--                                        <p id="noFound">没有找到匹配的记录</p>-->
                                         </tbody>
                                     </table>
+                                    <br><br><br><br><br><br><br><br>
                                 </div>
                             </div>
-                            <!--尾部页数-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-sm-12 col-md-5">-->
-<!--                                    <div class="dataTables-info" role="status" aria-live="polite">-->
-<!--                                        Showing 1 to 10 of all entries-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-sm-12 col-md-7"></div>-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </div>

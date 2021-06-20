@@ -29,10 +29,6 @@ public class MerchantServiceImpl implements MerchantService {
     @Autowired
     private OrderMapper orderMapper;
 
-    @Override
-    public List<Business> getBusinessList() {
-        return businessMapper.getBusinessList();
-    }
 
     @Override
     public RestFulBean<Order> getOrderByOrderId(Integer order_id) {

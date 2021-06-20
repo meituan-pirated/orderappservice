@@ -6,8 +6,6 @@ import com.example.orderappservice.pojo.*;
 import java.util.List;
 
 public interface MerchantService {
-    //查询商家
-    List<Business> getBusinessList();
 
     RestFulBean<Order> getOrderByOrderId(Integer order_id);
 

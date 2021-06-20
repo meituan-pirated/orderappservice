@@ -47,7 +47,11 @@ public interface ProductsMapper {
 
     @Delete("delete from products where product_id = #{product_id}")
     int deleteProduct(Integer product_id);
-//
+
+    //通过停用商家的ID修改商品的状态
+    @Update("update products set product_state='off' where business_id=#{business_id}")
+    int updateProductStateByBusinessId(@Param("business_id") Integer business_id);
+
 //    @Select("select * from products")
 //    @Results({
 //            @Result(property = "productName", column = "product_name"),
@@ -57,4 +61,6 @@ public interface ProductsMapper {
 //            @Result(property = "image", column = "image")
 //    })
 //    List<Products> getProductsList();
+
+
 }

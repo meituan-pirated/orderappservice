@@ -1,7 +1,6 @@
 package com.example.orderappservice.mapper;
 
-import com.example.orderappservice.pojo.Order;
-import com.example.orderappservice.pojo.User;
+import com.example.orderappservice.bean.MUser;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -10,28 +9,46 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper {
-    @Select("select * from user")
+//    @Select("select * from user")
+//    @Results({
+//            @Result(property = "user_id", column = "user_id"),
+//            @Result(property = "addressList", column = "user_id",
+//        many = @Many(select = "com.example.orderappservice.mapper.AddressMappergetAddressByUserId"))
+//    })
+//    List<User> getUserList();
+
+    //用户列表
+    @Select("select user_id,name,sex,phone_number,password from users where user_state='on'")
     @Results({
-            @Result(property = "user_id", column = "user_id"),
-            @Result(property = "addressList", column = "user_id",
-        many = @Many(select = "com.example.orderappservice.mapper.AddressMappergetAddressByUserId"))
+            @Result(property = "user_id",column = "user_id"),
+            @Result(property = "totalOrder",column = "user_id",
+            one = @One(select = "com.example.orderappservice.mapper.OrderMapper.getOrderCountByUserId"))
     })
-    List<User> getUserList();
+    List<MUser> getUserList();
 
-    //查询用户订单总数
-    @Select("select user_id,Count(order.order_id) as TotalOrder\n" +
-            "from `order`\n" +
-            "where user_id=user_id&&order_state=\"ACCEPT\"\n" +
-            "group by user_id\n" +
-            "order by Count(order.order_id) desc")
-    List<Order> getTotalOrderByUserId(Integer user_id);
+    //添加用户信息
+    @Insert(value="insert into users(user_id,name,sex,phone_number,password,user_state) " +
+            "values (#{u.user_id},#{u.name},#{u.sex},#{u.phoneNumber},#{u.password},'on')")
+    //设置主键自增
+    @Options(useGeneratedKeys = true,keyProperty = "user_id",keyColumn = "user_id")
+    int addUser(@Param("u") MUser mUser);
 
-    //增加用户信息
-    @Insert(value = "insert into users VALUES (#{u.user_id},#{u.name}," +
-            "#{u.sex},#{u.phone_number},#{u.password})")
-    int addUser(@Param("u") User user);
+    //根据id查询用户
+    @Select("select user_id,name,sex,phone_number,password,user_state from users" +
+            " where user_id=#{user_id}")
+    @Results({
+            @Result(property = "user_id",column = "user_id"),
+            @Result(property = "totalOrder",column = "user_id",
+                    one = @One(select = "com.example.orderappservice.mapper.OrderMapper.getOrderCountByUserId"))
+    })
+    MUser getUserByUserId(Integer user_id);
 
-    //删除用户信息
-    @Delete("delete from users where user_id=#{user_id}")
-    int deleteUser(Integer user_id);
+    //删除用户
+    @Update("update users set user_state='off' where user_id=#{user_id}")
+    int updateUserStateByUserId(@Param("user_id") Integer user_id);
+
+    //用户数量
+    @Select("select count(user_id) as totalOrder from `users`")
+    int getUserCount();
+
 }

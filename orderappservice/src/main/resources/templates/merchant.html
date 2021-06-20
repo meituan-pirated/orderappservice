@@ -11,7 +11,7 @@
     <!-- 引入element 的组件库-->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
-    <script src="../static/js/jquery-2.2.3.min.js"></script>
+    <script th:src="@{/js/jquery-2.2.3.min.js}"></script>
     <script type="text/javascript"></script>
 
     <script>
@@ -23,9 +23,38 @@
                 style.display = style.display == "block" ? "none":"block"
             };
         }
+/*        //搜索
+        function search() {
+            var searchContent=$("#search").val();   //获取input输入框值
+            var searchLen=$("#table tbody tr").length;   //获取查询条数，tr(除标题)的数目
+            printf(searchLen);
+            var searchAll=$("table .odd.id").text();
+            for (var i=0; i<searchLen; i++){
+                //获取要查询的内容，注意要写到for循环里面
+                let searchText = $("table .odd.id")[i].innerText;
+                if (searchText.match(searchContent)) {
+                    $("#table tbody tr")[i].style.display='';
+                }else {
+                    $("#table tbody tr")[i].style.display='none';    //不符合查询条件的当前数据隐藏
+                }
+            }
+            if(searchAll.match(searchContent)) {
+                $("#noFound").css("display","none");
+            }else {
+                $("#noFound").css("display","block");
+            }
+        }
+        //
+        $("#searchB").on("click",function () {
+            search();   //调用
+        })
+        //实习搜索内容随着input输入框实时查询，监听input输入框搜索内容实现查询
+        $("#search").bind("input propertychange",function () {
+            search();   //调用搜索方法
+        })*/
     </script>
-
 </head>
+
 <body id="app" style="margin: 0px;width: 100%; height: 100%;background-color: #545c64">
     <!--左边菜单栏-->
     <div class="el-aside" style="width: 120px;height: 100%">
@@ -38,33 +67,33 @@
                 </a>
             </li>
             <li class="el-menu-item is-active" style="color: white;padding-left: 20px">
-                <a href="merchant.html" style="color: #5ab1ef">
+                <a href="merchant" style="color: #5ab1ef">
                     <i class="el-icon-s-shop"></i>
                     <span>商家</span>
                 </a>
             </li>
             <li class="el-menu-item" style="color: white;padding-left: 20px">
-                <a href="user.html">
+                <a href="user">
                     <i class="el-icon-user"></i>
                     <span>用户</span>
                 </a>
             </li>
             <li class="el-menu-item" style="color: white;padding-left: 20px">
-                <a href="rider.html">
+                <a href="rider">
                     <i class="el-icon-s-custom"></i>
                     <span>骑手</span>
                 </a>
             </li>
             <li class="el-menu-item" style="color: white;padding-left: 20px">
-                <a href="order.html">
+                <a href="statistics">
                     <i class="el-icon-document"></i>
-                    <span>订单</span>
+                    <span>统计</span>
                 </a>
             </li>
             <li class="el-menu-item" style="color: white;padding-left: 20px">
-                <a href="statistics.html">
+                <a href="manager">
                     <i class="el-icon-s-marketing"></i>
-                    <span>统计</span>
+                    <span>管理</span>
                 </a>
             </li>
         </ul>
@@ -80,13 +109,12 @@
                     </span>
                     <div class="setlist">
                         <ul class="dropdown" id="ul_1" >
-                            <li><a href="#"> 修改密码 </a></li>
-                            <li><a href="#">退出</a></li>
+                            <li><a href="manager"> 管理员信息 </a></li>
+                            <li><a th:href="@{/manager/logout}">退出登录</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-
         </div>
         <!--主体-->
         <div class="el-main" style="background-color: #f5f7f9;height: 100%; padding: 1.5rem 15px">
@@ -102,11 +130,6 @@
                         <li class="content-item active" style="font-size: 14px">
                             商家信息管理
                         </li>
-                        <li>
-
-                        </li>
-                        <li>
-                        </li>
                     </ol>
                 </nav>
                 <!--列表详情-->
@@ -119,31 +142,27 @@
                             <div id="data-table-5_wrapper" class="dataTables_wrapper">
                                 <!--显示行数&搜索-->
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="dataTables-length" id="data-table-5_length">
-                                            <label>
-                                                Show
-                                                <select aria-controls="data-table-5" class="business-select">
-                                                    <option value="10">10</option>
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                </select>
-                                            </label>
-                                        </div>
+                                    <div>
+                                        &nbsp;<a th:href="@{/manager/addMerchant}" class="btn-sm">添加商家</a>&nbsp;&nbsp;
+                                        <a th:href="@{/manager/merchant}" class="btn-sm">刷新</a>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="dataTables_filter">
-                                            <label>
-                                                <input type="search" class="form-control" placeholder="Search Data..."aria-controls="data-table-5">
-                                            </label>
+                                            <form th:action="@{/manager/getMerchant}" method="post">
+                                                <input type="text" name="business_id">
+                                                &nbsp;<button type="submit" class="btn-sm">查找</button>&nbsp;&nbsp;
+                                            </form>
+<!--                                            <label>-->
+<!--                                                <input type="search" id="search" class="form-control" placeholder="Search Data..."aria-controls="data-table-5">-->
+<!--                                                <button id="searchB">搜索</button>-->
+<!--                                            </label>-->
                                         </div>
                                     </div>
                                 </div>
                                 <!--信息列表-->
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <table class="table" role="grid" style="width: 100%!important;">
+                                        <table class="table" id="table" role="grid" style="width: 100%!important;">
                                             <thead>
                                             <tr role="row" style="color: white">
                                                 <th class="sorting-asc" aria-controls="data-table-5"
@@ -160,9 +179,6 @@
                                                     style="width: 60px" aria-sort="ascending">Descriptions</th>
                                                 <th class="sorting" aria-controls="data-table-5"
                                                     rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
-                                                    style="width: 50px" aria-sort="ascending">Image</th>
-                                                <th class="sorting" aria-controls="data-table-5"
-                                                    rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
                                                     style="width: 50px" aria-sort="ascending">Order Count</th>
                                                 <th class="sorting" aria-controls="data-table-5"
                                                     rowspan="1" colspan="1" aria-label="Business ID:activate to sort column descending"
@@ -170,27 +186,31 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr th:each="MB:${MBusiness}" role="row" class="odd">
-                                                <td th:text="${MB.}"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="MB:${businessList}" role="row" class="odd">
+                                                <td th:text="${MB.business_id}" class="id"></td>
+                                                <td th:text="${MB.refectory}"></td>
+                                                <td th:text="${MB.businessName}"></td>
+                                                <td th:text="${MB.descriptions}"></td>
+                                                <td th:text="${MB.totalOrder}"></td>
+                                                <td>
+                                                    <div class="merchant-fun">
+                                                        <div class="div-m">
+                                                            <button type="button" class="btn-btn">
+                                                               <a class="btn-sm" th:href="@{/manager/update/}+${MB.business_id}">编辑</a>
+                                                            </button>
+                                                        </div>
+                                                        <div class="div-m">
+                                                            <form th:action="@{/manager/merchant/delete/}+${MB.business_id}" method="get" style="text-align: right">
+                                                                <button type="submit" class="btn-sm">删除</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
+                                            <p id="noFound">没有找到匹配的记录</p>
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-                                <!--尾部页数-->
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables-info" role="status" aria-live="polite">
-                                            Showing 1 to 10 of all entries
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-7"></div>
                                 </div>
                             </div>
                         </div>
@@ -199,6 +219,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>

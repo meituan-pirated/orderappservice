@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户管理界面</title>
+    <title>管理员信息界面</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
     <!--引入 element-ui 的样式，-->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -40,8 +40,8 @@
                 <span>商家</span>
             </a>
         </li>
-        <li class="el-menu-item is-active" style="color: white;padding-left: 20px">
-            <a href="user" style="color: #5ab1ef">
+        <li class="el-menu-item" style="color: white;padding-left: 20px">
+            <a href="user">
                 <i class="el-icon-user"></i>
                 <span>用户</span>
             </a>
@@ -58,8 +58,8 @@
                 <span>统计</span>
             </a>
         </li>
-        <li class="el-menu-item" style="color: white;padding-left: 20px">
-            <a href="manager">
+        <li class="el-menu-item is-active" style="color: white;padding-left: 20px">
+            <a href="manager" style="color: #5ab1ef">
                 <i class="el-icon-s-marketing"></i>
                 <span>管理</span>
             </a>
@@ -78,11 +78,12 @@
                 <div class="setlist">
                     <ul class="dropdown" id="ul_1" >
                         <li><a href="manager"> 管理员信息 </a></li>
-                        <li><a th:href="@{/manager/logout}">退出登录</a></li>
+                        <li><a th:href="@{/manager/logout}">退出</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+
     </div>
     <!--主体-->
     <div class="el-main" style="background-color: #f5f7f9;height: 100%; padding: 1.5rem 15px">
@@ -96,34 +97,18 @@
                         </a>
                     </li>
                     <li class="content-item active" style="font-size: 14px">
-                        用户信息管理
+                        管理员信息
                     </li>
                 </ol>
             </nav>
             <!--列表详情-->
             <div class="panel">
                 <div class="panel-header">
-                    <h6>用户信息</h6>
+                    <h6>管理员信息</h6>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <div id="data-table-5_wrapper" class="dataTables_wrapper">
-                            <!--显示行数&搜索-->
-                            <div class="row">
-                                <div>
-                                    &nbsp;
-                                    <a th:href="@{/manager/addUser}" class="btn-sm">添加用户</a>
-                                    &nbsp;&nbsp;&nbsp;<a th:href="@{/manager/user}" class="btn-sm">刷新</a>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="dataTables_filter">
-                                        <form th:action="@{/manager/getUser}" method="post">
-                                            <input type="text" name="user_id">
-                                            &nbsp;<button type="submit" class="btn-sm">查找</button>&nbsp;&nbsp;
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                             <!--信息列表-->
                             <div class="row">
                                 <div class="col-sm-12">
@@ -131,55 +116,27 @@
                                         <thead>
                                         <tr role="row" style="color: white">
                                             <th class="sorting-asc" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="User ID:activate to sort column descending"
-                                                style="width: 40px" aria-sort="ascending">User ID</th>
-                                            <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Name:activate to sort column descending"
-                                                style="width: 40px" aria-sort="ascending">Name</th>
-                                            <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Sex:activate to sort column descending"
-                                                style="width: 40px" aria-sort="ascending">Sex</th>
-                                            <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="PhoneNumber:activate to sort column descending"
-                                                style="width: 50px" aria-sort="ascending">PhoneNumber</th>
+                                                rowspan="1" colspan="1" aria-label="Manager ID:activate to sort column descending"
+                                                style="width: 40px" aria-sort="ascending">账号</th>
                                             <th class="sorting" aria-controls="data-table-5"
                                                 rowspan="1" colspan="1" aria-label="Password:activate to sort column descending"
-                                                style="width: 40px" aria-sort="ascending">Password</th>
+                                                style="width: 40px" aria-sort="ascending">密码</th>
                                             <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Order Count:activate to sort column descending"
-                                                style="width: 50px" aria-sort="ascending">Order Count</th>
-                                            <th class="sorting" aria-controls="data-table-5"
-                                                rowspan="1" colspan="1" aria-label="Function:activate to sort column descending"
-                                                style="width: 60px" aria-sort="ascending">Function</th>
+                                                rowspan="1" colspan="1" aria-label="Password:activate to sort column descending"
+                                                style="width: 40px" aria-sort="ascending">权限</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="MU:${userList}" role="row" class="odd">
-                                            <td th:text="${MU.user_id}"></td>
-                                            <td th:text="${MU.name}"></td>
-                                            <td th:text="${MU.sex}"></td>
-                                            <td th:text="${MU.phoneNumber}"></td>
-                                            <td th:text="${MU.password}"></td>
-                                            <td th:text="${MU.totalOrder}"></td>
-                                            <td>
-                                                <form th:action="@{/manager/user/delete/}+${MU.user_id}" method="get">
-                                                    <button type="submit" class="btn-sm">删除</button>
-                                                </form>
-                                            </td>
+                                        <tr role="row" class="odd">
+                                            <td>admin</td>
+                                            <td>123456</td>
+                                            <td>管理信息</td>
                                         </tr>
                                         </tbody>
                                     </table>
+                                    <br><br><br><br><br><br><br><br><br><br>
                                 </div>
                             </div>
-                            <!--尾部页数-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-sm-12 col-md-5">-->
-<!--                                    <div class="dataTables-info" role="status" aria-live="polite">-->
-<!--                                        Showing 1 to 10 of all entries-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-sm-12 col-md-7"></div>-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </div>
