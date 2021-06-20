@@ -1,8 +1,12 @@
 package com.example.orderappservice.service;
 
-import com.example.orderappservice.bean.RestFulBean;
-import com.example.orderappservice.pojo.*;
+import com.example.orderappservice.bean.*;
+import com.example.orderappservice.pojo.Business;
+import com.example.orderappservice.pojo.Order;
+import com.example.orderappservice.pojo.Products;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public interface MerchantService {
@@ -11,16 +15,24 @@ public interface MerchantService {
 
     RestFulBean<Order> getOrderByOrderState(Integer business_id, String order_state);
 
-    int updateOrderStateByOrderId(Integer order_id, String order_state);
+    RestFulBean<OrderIngForM> getOrderIngByBusinessId(Integer business_id, String order_state);
 
-    int deleteProduct(Integer product_id);
+    RestFulBean<OrderDoneBriefForM> getOrderDoneByBusinessId(Integer business_id, String order_state);
 
-    int addProduct(Products products);
+    RestFulBean<OrderDoneInfoForM> getOrderDoneInfoByOrderId(Integer order_id);
 
-//    //查询
-//    List<User> getUserList();
-//    //根据id查询商家
-//    List<Business> getBusinessByBusinessId(int id);
-//
-//    List<Products> getProductList();
+    RestFulBean<String> updateOrderStateByOrderId(Integer order_id, String order_state);
+
+    RestFulBean<Business> getBusinessInfo(Integer business_id);
+
+    RestFulBean<ProductBriefForM> getProductBriefForMByBusinessId(Integer business_id);
+
+    RestFulBean<Products> getProductByProductId(Integer product_id);
+
+    RestFulBean<String> saveProductChange(Products products);
+
+    RestFulBean<String> deleteProduct(Integer product_id);
+
+    RestFulBean<String> addProduct(Products products) throws IOException;
+
 }

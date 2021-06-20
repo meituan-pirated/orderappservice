@@ -1,6 +1,6 @@
 package com.example.orderappservice.mapper;
 
-import com.example.orderappservice.bean.MUser;
+import com.example.orderappservice.pojo.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,22 +9,14 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper {
-//    @Select("select * from user")
+//    //用户列表
+//    @Select("select user_id,name,sex,phone_number,password from users where user_state='on'")
 //    @Results({
-//            @Result(property = "user_id", column = "user_id"),
-//            @Result(property = "addressList", column = "user_id",
-//        many = @Many(select = "com.example.orderappservice.mapper.AddressMappergetAddressByUserId"))
+//            @Result(property = "user_id",column = "user_id"),
+//            @Result(property = "totalOrder",column = "user_id",
+//                    one = @One(select = "com.example.orderappservice.mapper.OrderMapper.getOrderCountByUserId"))
 //    })
-//    List<User> getUserList();
-
-    //用户列表
-    @Select("select user_id,name,sex,phone_number,password from users where user_state='on'")
-    @Results({
-            @Result(property = "user_id",column = "user_id"),
-            @Result(property = "totalOrder",column = "user_id",
-            one = @One(select = "com.example.orderappservice.mapper.OrderMapper.getOrderCountByUserId"))
-    })
-    List<MUser> getUserList();
+//    List<MUser> getUserList();
 
     //添加用户信息
     @Insert(value="insert into users(user_id,name,sex,phone_number,password,user_state) " +
@@ -33,15 +25,15 @@ public interface UserMapper {
     @Options(useGeneratedKeys = true,keyProperty = "user_id",keyColumn = "user_id")
     int addUser(@Param("u") MUser mUser);
 
-    //根据id查询用户
-    @Select("select user_id,name,sex,phone_number,password,user_state from users" +
-            " where user_id=#{user_id}")
+
+
+    @Select("select * from user")
     @Results({
-            @Result(property = "user_id",column = "user_id"),
-            @Result(property = "totalOrder",column = "user_id",
-                    one = @One(select = "com.example.orderappservice.mapper.OrderMapper.getOrderCountByUserId"))
+            @Result(property = "user_id", column = "user_id"),
+            @Result(property = "addressList", column = "user_id",
+        many = @Many(select = "com.example.orderappservice.mapper.AddressMappergetAddressByUserId"))
     })
-    MUser getUserByUserId(Integer user_id);
+    List<User> getUserList();
 
     //删除用户
     @Update("update users set user_state='off' where user_id=#{user_id}")
@@ -50,5 +42,4 @@ public interface UserMapper {
     //用户数量
     @Select("select count(user_id) as totalOrder from `users`")
     int getUserCount();
-
 }

@@ -1,7 +1,6 @@
 package com.example.orderappservice.mapper;
 
 import com.example.orderappservice.pojo.Attribute;
-import com.github.pagehelper.ISelect;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
