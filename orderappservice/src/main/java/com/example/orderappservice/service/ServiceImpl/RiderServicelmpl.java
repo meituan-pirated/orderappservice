@@ -8,13 +8,18 @@ import com.example.orderappservice.mapper.RiderMapper;
 import com.example.orderappservice.pojo.*;
 import com.example.orderappservice.service.RiderService;
 import com.example.orderappservice.util.RestFulUtil;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class RiderServicelmpl implements RiderService {
@@ -56,10 +61,37 @@ public class RiderServicelmpl implements RiderService {
 
     @Override
     public RestFulBean<Integer> ChangeRiderInfo(Integer riderID, String newNickName, String newSex, String finalPwd,String advatar) {
-        int update_login = loginMapper.updateLoginById(finalPwd,riderID);
-        int update_rider = riderMapper.updateRiderByRiderId(newSex,newNickName,finalPwd,advatar,riderID);
+        int update_login = 0;
+        int update_rider = 0;
+        try {
+//            System.out.println(products.getImage());
+            // Base64解码图片
 
+            System.out.println(advatar);
+            byte[] imageByteArray = Base64.decodeBase64(advatar);
+//            System.out.println(imageByteArray);
+
+            String uuid = "a"+ UUID.randomUUID().toString().replaceAll("-", "");
+
+            FileOutputStream imageOutFile = new FileOutputStream("E:\\Android_code\\FoodOrderingApp\\app\\src\\main\\res\\mipmap\\" + uuid+".jpg");
+            imageOutFile.write(imageByteArray);
+
+            imageOutFile.close();
+//            System.out.println(imageByteArray);
+            System.out.println(uuid);
+            update_login = loginMapper.updateLoginById(finalPwd,riderID);
+            update_rider = riderMapper.updateRiderByRiderId(newSex,newNickName,finalPwd,uuid,riderID);
+            System.out.println("Image Successfully Stored");
+            return RestFulUtil.getInstance().getResuFulBean(update_login*update_rider, 0, "更新骑手账号信息的结果");
+
+
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Image Path not found" + fnfe);
+        } catch (IOException ioe) {
+            System.out.println("Exception while converting the Image " + ioe);
+        }
         return RestFulUtil.getInstance().getResuFulBean(update_login*update_rider, 0, "更新骑手账号信息的结果");
+
     }
 
     @Override

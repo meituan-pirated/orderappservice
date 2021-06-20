@@ -35,7 +35,7 @@ public class RiderController {
         return riderService.getUnderwayOrderList(rider_id);
     }
 
-    @GetMapping("/changeRiderInfo")
+    @PostMapping("/changeRiderInfo")
     @ResponseBody
     public RestFulBean<Integer> changeRiderInfo(@RequestParam("rider_id")Integer rider_id, @RequestParam("nick_name")String nick_name,
                                                 @RequestParam("sex")String sex,@RequestParam("password")String password,
